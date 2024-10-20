@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc Mừng Sinh Nhật Chí Trung</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #ffccff; /* Nền màu hồng */
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        /* Thiết kế nút */
+        #button {
+            padding: 15px 30px;
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #ff5722; /* Màu nền nút */
+            color: white; /* Màu chữ nút */
+            border: none;
+            border-radius: 5px;
+            transition: transform 0.2s ease, background-color 0.2s ease; /* Animation cho nút */
+        }
+
+        #button:hover {
+            background-color: #ff3d00; /* Thay đổi màu khi hover */
+            transform: scale(1.1); /* Tăng kích thước khi hover */
+        }
+
+        #celebration-image {
+            display: none;
+            margin-top: 20px;
+            width: 300px; /* Thay đổi kích thước theo nhu cầu */
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s ease-in; /* Hiệu ứng hiện lên */
+        }
+
+        #congratulations {
+            display: none;
+            text-align: center;
+            font-size: 36px; /* Kích thước chữ lớn hơn */
+            font-weight: bold; /* Chữ đậm */
+            margin-top: 20px;
+            color: #d50000; /* Màu chữ */
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Hiệu ứng bóng cho chữ */
+            animation: fadeIn 1s ease-in; /* Hiệu ứng hiện lên */
+        }
+
+        /* Hiệu ứng bắn pháo bông */
+        .firework {
+            position: absolute;
+            background-color: red; /* Màu pháo bông đỏ */
+            border-radius: 50%;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+            animation: explode 1s forwards; /* Hiệu ứng nổ */
+        }
+
+        /* Hiệu ứng nổ cho pháo bông */
+        @keyframes explode {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(5); }
+        }
+
+        /* Hiệu ứng fadeIn */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<button id="button">Nhận Bất Ngờ</button>
+<audio id="birthday-song" src="hppt.mp3" preload="auto"></audio> <!-- Thay đường dẫn tới file MP3 của bạn -->
+
+<div id="congratulations">
+    🎉 Chúc Mừng Sinh Nhật Chí Trung! 🎂
+</div>
+
+<!-- Hình ảnh của Chí Trung -->
+<img id="celebration-image" src="ctr.jpg" alt="Chí Trung" /> <!-- Thay đường dẫn tới hình ảnh của Chí Trung -->
+
+<script>
+    const button = document.getElementById('button');
+    const congratulations = document.getElementById('congratulations');
+    const birthdaySong = document.getElementById('birthday-song');
+    const celebrationImage = document.getElementById('celebration-image');
+
+    button.addEventListener('click', () => {
+        // Phát nhạc
+        birthdaySong.play();
+
+        // Hiển thị pháo bông
+        createFireworks();
+
+        // Hiển thị chúc mừng và hình ảnh sau 3 giây
+        setTimeout(() => {
+            congratulations.style.display = 'block';
+            celebrationImage.style.display = 'block'; // Hiển thị hình ảnh
+        }, 3000);
+    });
+
+    // Hàm tạo hiệu ứng pháo bông
+    function createFireworks() {
+        for (let i = 0; i < 20; i++) {
+            const firework = document.createElement('div');
+            firework.classList.add('firework');
+            document.body.appendChild(firework);
+            firework.style.left = `${Math.random() * window.innerWidth}px`;
+            firework.style.bottom = `0px`; // Xuất hiện từ dưới
+            firework.style.opacity = 1;
+
+            // Hiệu ứng di chuyển lên trên
+            firework.animate([
+                { transform: 'translateY(0)', opacity: 1 },
+                { transform: `translateY(-100vh)`, opacity: 0 }
+            ], {
+                duration: 1000,
+                easing: 'ease-out',
+                fill: 'forwards'
+            });
+
+            // Xóa pháo bông sau khi hoàn thành
+            setTimeout(() => {
+                firework.remove();
+            }, 1000);
+        }
+    }
+</script>
+
+</body>
+</html>
